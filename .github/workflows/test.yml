@@ -29,8 +29,8 @@ jobs:
         with:
           arguments: test
 
-      - name: "Upload test result"
+      - name: "Upload test result - jdk"
         uses: actions/upload-artifact@v1.0.0
         with:
-          name: test-result
-          path: build/reports/tests
+          name: test-result-jdk
+          path: jdk/build/reports/tests
