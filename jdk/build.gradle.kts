@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.toliner"
-version = "0.0.1"
+version = rootProject.version
 
 repositories {
     mavenCentral()

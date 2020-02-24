@@ -1,5 +1,6 @@
 group = "dev.toliner"
-version = "0.0.1"
+version = System.getenv("GITHUB_REF")?.takeIf { it.startsWith("refs/tags/") }?.removePrefix("refs/tags/")
+    ?: "unspecified"
 
 plugins {
     `maven-publish`
