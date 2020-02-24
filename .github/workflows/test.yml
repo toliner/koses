@@ -1,0 +1,36 @@
+name: Run test
+on:
+  push:
+    branches-ignore: master
+  pull_request:
+    branches: master
+
+jobs:
+  test:
+    runs-on: [ubuntu-latest]
+    steps:
+
+      - uses: actions/checkout@v1
+
+      - name: "Cache ~/.gradle/caches"
+        uses: actions/cache@v1
+        with:
+          path: "~/.gradle/caches"
+          key: gradle-${{ hashFiles('**/build.gradle.kts') }}
+          restore-keys: gradle-
+
+      - name: "Setup Java"
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: "Run test"
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: test
+
+      - name: "Upload test result - jdk"
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: test-result-jdk
+          path: jdk/build/reports/tests

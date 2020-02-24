@@ -1,6 +1,8 @@
 group = "dev.toliner"
-version = "0.0.1"
+version = System.getenv("GITHUB_REF")?.takeIf { it.startsWith("refs/tags/") }?.removePrefix("refs/tags/")
+    ?: "unspecified"
 
 plugins {
-    kotlin("plugin.serialization") version "1.3.61"
+    `maven-publish`
+    id("com.jfrog.bintray") version "1.8.4"
 }
