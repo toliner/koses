@@ -5,6 +5,11 @@ import kotlinx.serialization.internal.StringDescriptor
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
+/**
+ * When serializing, only ISO-8601 based DateTime are supported.
+ * [ZonedDateTime]'s region-based zone IDs are ignored when serializing.
+ * Before serializing, [ZonedDateTime.withFixedOffsetZone] is recommended.
+ */
 @Suppress("unused")
 @Serializer(forClass = ZonedDateTime::class)
 object ZonedDateTimeSerializer : KSerializer<ZonedDateTime> {

@@ -15,19 +15,30 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     api(Dependencies.Serializations.JVM)
+
+    testImplementation(kotlin("test"))
+    testImplementation(kotlin("test-junit5"))
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:4.0.0-BETA1")
+    testImplementation("io.kotest:kotest-property-jvm:4.0.0-BETA1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.1")
 }
 
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
     }
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
     }
     register<Jar>("sourcesJar") {
         group = "build"
         from(sourceSets.main.get().allSource)
         archiveClassifier.set("sources")
+    }
+    test {
+        useJUnitPlatform()
     }
 }
 
